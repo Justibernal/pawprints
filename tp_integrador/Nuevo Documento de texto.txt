@@ -1,0 +1,24 @@
+Nombre: ??
+
+Integrantes: Bernal Justino, Marino Lautaro, Kasparian Federico
+
+
+
+Objetivo: 
+    Canjear mis vehiculos por otros que publiquen diferentes usuarios.
+    Vender mis vehiculos
+    Tasar mis vehiculos con IA 
+    Ubicar vehiculos que esten cerca de mi en un Mapa
+    Recomendaciones de vehiculos para canjear/comprar (Recomendado por IA)
+    Chatear con usuarios que esten interesados en canjear/comprar mis vehiculos
+    LLM que responda preguntas o ayudea a los usuarios para el uso de la aplicación.
+
+Secciones:
+    0. Register/Login
+    1. Home
+    2. Mapa --> Ubicaciones de los autos
+    3. Matchear con IA
+    4. Mis vehiculos (Publicar vehiculos, historial de vendidos/comprados, tasar vehiculo con IA)
+    5. Sistema de chats entre usuarios
+    6. Ayuda / preguntas frecuentes
+

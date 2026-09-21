@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Catálogo - PawPrints</title>
   <meta name="description" content="Catálogo de libros de PawPrints: título, autor, precio y descripción.">
+  <link rel="stylesheet" href="styles/style.css">
+  <link rel="stylesheet" href="styles/print.css" media="print">
 </head>
 <body>
 
@@ -25,7 +27,7 @@
   <main>
     <h2>Catálogo</h2>
 
-    <form action="catalogo.html" method="get" aria-labelledby="filtro-heading">
+    <form class="filtros" action="catalogo.html" method="get" aria-labelledby="filtro-heading">
       <fieldset>
         <legend id="filtro-heading">Filtrar</legend>
 
@@ -62,7 +64,7 @@
     <section aria-labelledby="listado-heading">
       <h2 id="listado-heading">Libros disponibles</h2>
 
-      <ul>
+      <ul class="catalogo-lista">
         <li>
           <article aria-labelledby="libro1-titulo">
             <a href="libro.html">
@@ -75,7 +77,7 @@
             <p>Autor: Gabriel García Márquez</p>
             <p>Precio: <data value="15000">$15.000</data></p>
             <p>Una saga familiar atravesada por el realismo mágico en el pueblo de Macondo.</p>
-            <a href="libro.html">Ver detalle</a>
+            <a class="btn" href="libro.html">Ver detalle</a>
           </article>
         </li>
 
@@ -91,7 +93,7 @@
             <p>Autor: Julio Cortázar</p>
             <p>Precio: <data value="14200">$14.200</data></p>
             <p>Una novela experimental que puede leerse en múltiples órdenes.</p>
-            <a href="libro.html">Ver detalle</a>
+            <a class="btn" href="libro.html">Ver detalle</a>
           </article>
         </li>
 
@@ -107,7 +109,7 @@
             <p>Autor: Jorge Luis Borges</p>
             <p>Precio: <data value="12800">$12.800</data></p>
             <p>Una colección de cuentos que exploran laberintos, espejos e infinitos.</p>
-            <a href="libro.html">Ver detalle</a>
+            <a class="btn" href="libro.html">Ver detalle</a>
           </article>
         </li>
 
@@ -123,7 +125,7 @@
             <p>Autor: Isabel Allende</p>
             <p>Precio: <data value="13500">$13.500</data></p>
             <p>La historia de la familia Trueba a lo largo de varias generaciones.</p>
-            <a href="libro.html">Ver detalle</a>
+            <a class="btn" href="libro.html">Ver detalle</a>
           </article>
         </li>
 
@@ -139,7 +141,7 @@
             <p>Autor: Ernesto Sabato</p>
             <p>Precio: <data value="9900">$9.900</data></p>
             <p>La confesión de un pintor obsesionado tras cometer un crimen pasional.</p>
-            <a href="libro.html">Ver detalle</a>
+            <a class="btn" href="libro.html">Ver detalle</a>
           </article>
         </li>
 
@@ -155,7 +157,7 @@
             <p>Autor: Carlos Fuentes</p>
             <p>Precio: <data value="8700">$8.700</data></p>
             <p>Una nouvelle fantástica narrada en segunda persona.</p>
-            <a href="libro.html">Ver detalle</a>
+            <a class="btn" href="libro.html">Ver detalle</a>
           </article>
         </li>
       </ul>

@@ -1,3 +1,5 @@
+/* Reset: saca márgenes y estilos por defecto del navegador */
+
 *, *::before, *::after {
   box-sizing: border-box;
 }
@@ -11,6 +13,7 @@ ul {
   list-style: none;
 }
 
+/* Las imágenes no se pasan del ancho de su contenedor */
 img {
   max-width: 100%;
   display: block;

@@ -1,23 +1,39 @@
+/* PawPrints - estilos de pantalla.
+   Colores y tipografía según el manual Violeta (ver README).
+   Mobile first: lo base es para celular y las media queries del final van
+   agregando columnas. */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap");
 @import url(reset.css);
 
 :root{
-    --color-principal: #6d28d9;
-    --color-principal-oscuro: #4c1d95;
-    --color-secundario: #f3e8ff;
-    --color-fondo: #faf9fb;
-    --color-texto: #241534;
-    --color-borde: #ddd0f0;
+    /* Colores del manual */
+    --color-principal: #5c068c;
+    --color-blanco: #ffffff;
 
-    font-family: Arial, Helvetica, sans-serif;
+    /* El manual solo trae violeta y blanco. Para hover, fondos y bordes
+       usamos el mismo violeta más oscuro o más claro. */
+    --color-principal-oscuro: #400462;
+    --color-secundario: #f2ebf6;
+    --color-borde: #decde8;
+
+    /* Texto: el manual no fija un color, usamos gris oscuro */
+    --color-texto: #222222;
+    --color-texto-suave: #5f5f5f;
+
+    /* Argentum Sans es la del manual, Montserrat la equivalente */
+    --fuente: "Argentum Sans", "Montserrat", sans-serif;
+
+    font-family: var(--fuente);
     font-size: 16px;
     line-height: 1.5;
     color: var(--color-texto);
 }
 
+/* Tope de ancho para que en pantallas grandes no quede todo estirado */
 body{
     max-width: 1200px;
     margin-inline: auto;
-    background: var(--color-fondo);
+    background: var(--color-blanco);
 }
 
 a{
@@ -26,9 +42,14 @@ a{
 a:hover{
     color: var(--color-principal-oscuro);
 }
+a:focus-visible, button:focus-visible, input:focus-visible,
+select:focus-visible, textarea:focus-visible{
+    outline: 2px solid var(--color-principal);
+    outline-offset: 2px;
+}
 
 header{
-    background: #fff;
+    background: var(--color-blanco);
     padding: 1.25rem 1.5rem;
     border-bottom: 3px solid var(--color-principal);
 }
@@ -37,13 +58,14 @@ header h1{
     font-size: 1.8rem;
 }
 header p{
-    color: #6b6473;
+    color: var(--color-texto-suave);
     font-size: .95rem;
     margin-top: .25rem;
 }
 
+/* Menú: flex con wrap, en celular los enlaces bajan de renglón */
 body > nav{
-    background: #fff;
+    background: var(--color-blanco);
     border-bottom: 1px solid var(--color-borde);
 }
 body > nav ul{
@@ -62,56 +84,71 @@ body > nav a{
 body > nav a:hover{
     background: var(--color-secundario);
 }
+/* Página actual: se marca con aria-current en el html */
 body > nav a[aria-current="page"]{
     background: var(--color-principal);
-    color: #fff;
+    color: var(--color-blanco);
 }
 
-main, body > section{
+main{
     padding: 2rem 1.5rem;
 }
-main h2, body > section h2{
-    color: var(--color-principal-oscuro);
+main h2{
+    color: var(--color-principal);
     font-size: 1.5rem;
     margin-bottom: 1rem;
 }
 h3{
-    color: var(--color-principal-oscuro);
+    color: var(--color-principal);
     margin-bottom: .5rem;
 }
 p{
     margin-bottom: .75rem;
 }
+main section:not(:first-child){
+    margin-top: 1.75rem;
+}
 figcaption{
     font-size: .8rem;
-    color: #6b6473;
+    color: var(--color-texto-suave);
     margin-top: .25rem;
 }
-
-body > section ul li{
-    padding: .5rem 0;
-    border-bottom: 1px solid var(--color-borde);
+address{
+    font-style: normal;
 }
 
-/* Inicio: promociones */
-aside{
-    background: var(--color-secundario);
-    padding: 2rem 1.5rem;
+/* Inicio: presentación y canales de venta */
+.presentacion{
     display: grid;
     gap: 1rem;
 }
-aside h2{
-    color: var(--color-principal-oscuro);
+.presentacion article{
+    background: var(--color-blanco);
+    border: 1px solid var(--color-borde);
+    border-radius: .5rem;
+    padding: 1rem;
 }
-aside article{
-    background: #fff;
+
+/* Inicio: promociones. Van con fondo para que se destaquen del resto */
+.promociones{
+    background: var(--color-secundario);
+    border-radius: .5rem;
+    padding: 1.5rem;
+}
+.promociones ul{
+    display: grid;
+    gap: 1rem;
+}
+.promociones article{
+    height: 100%;
+    background: var(--color-blanco);
     border: 1px solid var(--color-borde);
     border-radius: .5rem;
     padding: 1rem;
 }
 mark{
     background: var(--color-principal);
-    color: #fff;
+    color: var(--color-blanco);
     padding: .1rem .4rem;
     border-radius: .25rem;
 }
@@ -129,7 +166,7 @@ fieldset{
 legend{
     padding: 0 .5rem;
     font-weight: bold;
-    color: var(--color-principal-oscuro);
+    color: var(--color-principal);
 }
 label{
     display: block;
@@ -137,6 +174,10 @@ label{
     margin-bottom: .25rem;
     font-size: .9rem;
     font-weight: bold;
+}
+/* El label ya es block, el <br> del html dejaba un renglón vacío */
+label + br{
+    display: none;
 }
 input, select, textarea{
     display: block;
@@ -163,6 +204,7 @@ li button{
     border-radius: 50%;
 }
 
+/* Filtros del catálogo: se apilan en celular y quedan en fila si entran */
 .filtros{
     display: flex;
     flex-wrap: wrap;
@@ -177,7 +219,7 @@ li button{
 button, a.btn{
     display: inline-block;
     background: var(--color-principal);
-    color: #fff;
+    color: var(--color-blanco);
     border: none;
     padding: .6rem 1.25rem;
     border-radius: 999px;
@@ -187,14 +229,15 @@ button, a.btn{
 }
 button:hover, a.btn:hover{
     background: var(--color-principal-oscuro);
-    color: #fff;
+    color: var(--color-blanco);
 }
 li button:hover{
     background: var(--color-principal);
-    color: #fff;
+    color: var(--color-blanco);
 }
 
-/* Catálogo */
+/* Catálogo: grid de fichas. Cada ficha es flex en columna para que el
+   botón quede abajo aunque los textos midan distinto */
 .catalogo-lista{
     display: grid;
     grid-template-columns: 1fr;
@@ -205,7 +248,7 @@ li button:hover{
     height: 100%;
     display: flex;
     flex-direction: column;
-    background: #fff;
+    background: var(--color-blanco);
     border: 1px solid var(--color-borde);
     border-radius: .5rem;
     padding: 1rem;
@@ -239,20 +282,49 @@ li button:hover{
     border-bottom: none;
 }
 
+/* Contacto */
+table{
+    width: 100%;
+    max-width: 28rem;
+    border-collapse: collapse;
+    margin-bottom: 1rem;
+}
+caption{
+    text-align: left;
+    font-size: .9rem;
+    color: var(--color-texto-suave);
+    margin-bottom: .5rem;
+}
+th, td{
+    text-align: left;
+    padding: .5rem .75rem;
+    border-bottom: 1px solid var(--color-borde);
+}
+.sedes-lista li{
+    padding: .5rem 0;
+    border-bottom: 1px solid var(--color-borde);
+}
+main nav ul{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
 footer{
-    background: var(--color-principal-oscuro);
-    color: #fff;
+    background: var(--color-principal);
+    color: var(--color-blanco);
     padding: 2rem 1.5rem;
     display: flex;
     flex-wrap: wrap;
     gap: 1.5rem;
     justify-content: space-between;
 }
-footer address{
-    font-style: normal;
+footer h2{
+    font-size: 1.1rem;
+    margin-bottom: .5rem;
 }
 footer a{
-    color: #fff;
+    color: var(--color-blanco);
 }
 footer a:hover{
     color: var(--color-secundario);
@@ -272,12 +344,18 @@ footer p{
     color: var(--color-secundario);
 }
 
+/* Breakpoints: 700px y 1024px. Los elegimos por el ancho de las fichas:
+   cada una necesita unos 300px, así que a 700 entran dos y a 1024 tres.
+   Con menos de 700px queda todo en una columna. */
 @media (min-width: 700px){
-    aside{
+    .presentacion{
         grid-template-columns: repeat(2, 1fr);
     }
-    aside h2{
+    .presentacion h2, .presentacion > p{
         grid-column: 1 / -1;
+    }
+    .promociones ul{
+        grid-template-columns: repeat(2, 1fr);
     }
     .catalogo-lista{
         grid-template-columns: repeat(2, 1fr);
@@ -288,7 +366,7 @@ footer p{
 }
 
 @media (min-width: 1024px){
-    aside{
+    .promociones ul{
         grid-template-columns: repeat(3, 1fr);
     }
     .catalogo-lista{
@@ -297,7 +375,7 @@ footer p{
     .servicios-lista{
         grid-template-columns: repeat(3, 1fr);
     }
-    main, body > section{
+    main{
         padding: 2.5rem 2rem;
     }
 }

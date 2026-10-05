@@ -2,7 +2,7 @@
 
 Sitio web de la librería PAWPrints. Trabajos prácticos de Programación en Ambiente Web (11086), Comisión 50, UNLu.
 
-Integrantes: Federico Kasparian, Justino Bernal y Lautaro Marino. Los legajos están en `autores.txt` y la versión en `VERSION`.
+Integrantes: Federico Kasparian, Justino Bernal , Lautaro Marino y Ponti Mateo. Los legajos están en `autores.txt` y la versión en `VERSION`.
 
 ## Enunciado
 

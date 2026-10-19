@@ -1,0 +1,62 @@
+[
+  {
+    "id": "cien-anos-de-soledad",
+    "titulo": "Cien años de soledad",
+    "autor": "Gabriel García Márquez",
+    "genero": "novela",
+    "precio": 15000,
+    "resumen": "Una saga familiar atravesada por el realismo mágico en el pueblo de Macondo.",
+    "descripcion": "Cien años de soledad narra la historia de la familia Buendía a lo largo de siete generaciones en el pueblo ficticio de Macondo. Considerada la obra cumbre del realismo mágico, mezcla lo cotidiano con lo fantástico para retratar el ciclo de la vida, el amor y la soledad.",
+    "autor_bio": "Gabriel García Márquez (1927-2014) fue un escritor y periodista colombiano, ganador del Premio Nobel de Literatura en 1982. Es uno de los máximos exponentes del realismo mágico latinoamericano."
+  },
+  {
+    "id": "rayuela",
+    "titulo": "Rayuela",
+    "autor": "Julio Cortázar",
+    "genero": "novela",
+    "precio": 14200,
+    "resumen": "Una novela experimental que puede leerse en múltiples órdenes.",
+    "descripcion": "Rayuela sigue a Horacio Oliveira entre París y Buenos Aires. Su estructura en capítulos que pueden leerse en distintos órdenes la convirtió en una de las novelas más innovadoras de la literatura en español.",
+    "autor_bio": "Julio Cortázar (1914-1984) fue un escritor argentino, referente del cuento fantástico y del boom latinoamericano."
+  },
+  {
+    "id": "ficciones",
+    "titulo": "Ficciones",
+    "autor": "Jorge Luis Borges",
+    "genero": "cuento",
+    "precio": 12800,
+    "resumen": "Una colección de cuentos que exploran laberintos, espejos e infinitos.",
+    "descripcion": "Ficciones reúne algunos de los cuentos más célebres de Borges, como \"Tlön, Uqbar, Orbis Tertius\" y \"La biblioteca de Babel\", donde lo filosófico y lo fantástico se cruzan.",
+    "autor_bio": "Jorge Luis Borges (1899-1986) fue un escritor argentino, autor de cuentos, ensayos y poemas, y uno de los escritores más influyentes del siglo XX."
+  },
+  {
+    "id": "la-casa-de-los-espiritus",
+    "titulo": "La casa de los espíritus",
+    "autor": "Isabel Allende",
+    "genero": "novela",
+    "precio": 13500,
+    "resumen": "La historia de la familia Trueba a lo largo de varias generaciones.",
+    "descripcion": "La casa de los espíritus recorre cuatro generaciones de la familia Trueba, con el trasfondo de los cambios políticos y sociales de un país latinoamericano.",
+    "autor_bio": "Isabel Allende (1942) es una escritora chilena, una de las autoras en español más leídas del mundo."
+  },
+  {
+    "id": "el-tunel",
+    "titulo": "El túnel",
+    "autor": "Ernesto Sabato",
+    "genero": "novela",
+    "precio": 9900,
+    "resumen": "La confesión de un pintor obsesionado tras cometer un crimen pasional.",
+    "descripcion": "En El túnel, el pintor Juan Pablo Castel cuenta desde la cárcel cómo llegó a matar a María Iribarne, en una novela breve sobre la soledad y la obsesión.",
+    "autor_bio": "Ernesto Sabato (1911-2011) fue un escritor, físico y pintor argentino, autor de El túnel, Sobre héroes y tumbas y Abaddón el exterminador."
+  },
+  {
+    "id": "aura",
+    "titulo": "Aura",
+    "autor": "Carlos Fuentes",
+    "genero": "novela",
+    "precio": 8700,
+    "resumen": "Una nouvelle fantástica narrada en segunda persona.",
+    "descripcion": "Aura cuenta la historia de Felipe Montero, un joven historiador que acepta un trabajo en una vieja casa del centro de la Ciudad de México, donde nada es lo que parece.",
+    "autor_bio": "Carlos Fuentes (1928-2012) fue un escritor mexicano, figura central del boom latinoamericano."
+  }
+]

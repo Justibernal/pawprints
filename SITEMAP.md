@@ -1,12 +1,12 @@
 # SiteMap - PawPrints
 
 ```
-Inicio (index.html)
-├── Catálogo (catalogo.html)
-│   └── Detalle de libro (libro.html)
-├── Formulario de Reserva (reserva.html)
-├── Nuestra Historia (nosotros.html)
-└── Contacto (contacto.html)
+Inicio (/)
+├── Catálogo (/catalogo)
+│   └── Detalle de libro (/catalogo/{id})
+├── Formulario de Reserva (/reserva)
+├── Nuestra Historia (/nosotros)
+└── Contacto (/contacto)
 
 En el footer de todas las páginas: datos de contacto y redes sociales.
 ```

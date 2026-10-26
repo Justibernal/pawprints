@@ -1,4 +1,7 @@
 /* PawPrints - estilos de pantalla.
+   Guía de estilos: manual de identidad corporativa, opción Violeta (violeta #5c068c sobre blanco, tipografía geométrica).
+   Los colores y la fuente están como variables en :root: cambiar ahí cambia todo el sitio.
+   Este archivo se enlaza con ruta relativa (styles/style.css) desde cada página; reset.css va antes y print.css solo para impresión.
    Colores y tipografía según el manual Violeta: violeta #5c068c y blanco, Argentum Sans (equivalente: Montserrat).
    Mobile first: lo base es para celular y las media queries del final agregan columnas. */
 

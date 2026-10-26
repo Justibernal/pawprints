@@ -1,6 +1,0 @@
-# Apache: todo lo que no sea un archivo existente (CSS, imágenes) va al front controller
-Options -Indexes
-RewriteEngine On
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^ index.php [QSA,L]

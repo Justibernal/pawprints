@@ -141,13 +141,15 @@ main > section + section, main > article + section { margin-top: 2rem; }
 .acciones { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1rem; }
 
 .canales { display: grid; gap: 1rem; margin-top: 1rem; }
-.canales article, .promociones li {
+.canales article, .promociones li, .cuenta-inicio {
     padding: 1rem 1.25rem;
     border: 1px solid var(--borde);
     border-left: 6px solid var(--violeta);
     border-radius: .4rem;
     background: var(--blanco);
 }
+.cuenta-inicio { margin-top: 1rem; }
+.cuenta-inicio h2 { margin-top: 0; }
 .promociones ul { display: grid; gap: 1rem; }
 
 mark {

@@ -16,7 +16,7 @@ En el footer de todas las páginas: datos de contacto y redes sociales.
 
 ## Descripción de páginas
 
-- **Inicio**: presentación de la librería (tienda online + tienda física), libros destacados del catálogo y promociones/novedades.
+- **Inicio**: presentación de la librería (tienda online + tienda física), zona "Tu cuenta" con enlaces a Crear cuenta e Ingresar (con la sesión iniciada muestra un saludo), libros destacados del catálogo y promociones/novedades.
 - **Catálogo**: listado de libros con filtro, orden y paginación; cada libro enlaza a su página de detalle.
 - **Detalle de libro**: descripción completa, información del autor, precio y botón de reserva. Se accede desde el catálogo.
 - **Formulario de Reserva**: datos del solicitante (nombre, email, teléfono) y selección de uno o más libros con su cantidad.

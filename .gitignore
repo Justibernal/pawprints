@@ -1,2 +1,5 @@
 .DS_Store
 Thumbs.db
+
+# Configuración local de la dirección de la API (ver js/api/config.local.example.js)
+js/api/config.local.js

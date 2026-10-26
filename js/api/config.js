@@ -1,8 +1,19 @@
 // Dirección de la API de PawPrints (sin barra al final).
-// Abriendo el front en localhost o 127.0.0.1 se usa el back local; en cualquier otro dominio, el desplegado.
-const LOCAL = 'http://localhost:8000';
-const PRODUCCION = 'https://pawprints-backend.onrender.com'; // cambiar por la URL real del back en Render
+//
+// Por defecto es el back publicado: así el sitio en producción (rama main) siempre apunta bien, sin tocar nada.
+// Para probar con el back local, copiar config.local.example.js como config.local.js (no se sube al repo).
+// Ese archivo solo se carga al abrir el front en localhost o 127.0.0.1; en cualquier otro dominio se ignora.
+const PRODUCCION = 'https://pawprintsbackend.onrender.com';
 
 const enLocal = ['localhost', '127.0.0.1', ''].includes(window.location.hostname);
 
-export const API_URL = enLocal ? LOCAL : PRODUCCION;
+let local = {};
+if (enLocal) {
+    try {
+        local = await import('./config.local.js');
+    } catch {
+        // No hay config.local.js: se usa PRODUCCION.
+    }
+}
+
+export const API_URL = String(local.API_URL || PRODUCCION).replace(/\/+$/, '');

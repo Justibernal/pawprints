@@ -1,0 +1,352 @@
+/* PawPrints - estilos de pantalla.
+   Colores y tipografía según el manual Violeta: violeta #5c068c y blanco, Argentum Sans (equivalente: Montserrat).
+   Mobile first: lo base es para celular y las media queries del final agregan columnas. */
+
+:root {
+    --violeta: #5c068c;
+    --violeta-oscuro: #400462;
+    --violeta-claro: #f2ebf6;
+    --blanco: #ffffff;
+    --texto: #222222;
+    --texto-suave: #55505a;     /* 7.6:1 sobre blanco */
+    --borde: #decde8;           /* separadores decorativos */
+    --borde-campo: #6f4a85;     /* bordes de campos y botones: 7:1 sobre blanco */
+    --error: #a8001d;           /* 7.8:1 sobre blanco */
+    --error-fondo: #fdecef;
+    --foco: #1a1aff;
+
+    --fuente: "Argentum Sans", "Montserrat", system-ui, sans-serif;
+    font-family: var(--fuente);
+    font-size: 16px;
+    line-height: 1.55;
+    color: var(--texto);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+    max-width: 1200px;
+    margin-inline: auto;
+    background: var(--blanco);
+}
+
+/* ---------- Utilidades ---------- */
+.visualmente-oculto {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.salto {
+    position: absolute;
+    left: .5rem;
+    top: -4rem;
+    z-index: 10;
+    padding: .6rem 1rem;
+    background: var(--violeta);
+    color: var(--blanco);
+    border-radius: .4rem;
+}
+.salto:focus { top: .5rem; }
+
+[hidden] { display: none !important; }
+
+/* ---------- Texto y enlaces ---------- */
+a { color: var(--violeta); text-decoration: underline; text-underline-offset: .2em; }
+a:hover { color: var(--violeta-oscuro); text-decoration-thickness: 2px; }
+
+:focus-visible {
+    outline: 3px solid var(--foco);
+    outline-offset: 2px;
+}
+
+h1 { font-size: 1.9rem; line-height: 1.2; color: var(--violeta); margin-bottom: 1rem; }
+h2 { font-size: 1.4rem; line-height: 1.25; color: var(--violeta); margin: 2rem 0 .75rem; }
+h3 { font-size: 1.1rem; color: var(--violeta); margin-bottom: .4rem; }
+p { margin-bottom: .75rem; max-width: 70ch; }
+small { font-size: .85rem; }
+strong { font-weight: 700; }
+address { font-style: normal; }
+main:focus { outline: none; }
+[tabindex="-1"]:focus { outline: none; }
+.resumen-errores:focus, .aviso-general:focus { outline: 3px solid var(--foco); outline-offset: 2px; }
+
+/* ---------- Estructura ---------- */
+#cabecera {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 4px solid var(--violeta);
+}
+.marca { font-size: 1.9rem; font-weight: 700; margin: 0; }
+.marca a { color: var(--violeta); text-decoration: none; }
+.lema { margin: .25rem 0 0; color: var(--texto-suave); }
+
+#menu { border-bottom: 1px solid var(--borde); }
+#menu ul { display: flex; flex-wrap: wrap; gap: .5rem; padding: .75rem 1.5rem; }
+#menu a, .boton-menu {
+    display: inline-block;
+    padding: .5rem 1rem;
+    border-radius: 999px;
+    font: inherit;
+    font-size: .92rem;
+    text-decoration: none;
+    color: var(--violeta);
+}
+#menu a:hover { background: var(--violeta-claro); }
+/* Página actual: fondo, negrita y subrayado, no solo color */
+#menu a[aria-current="page"] {
+    background: var(--violeta);
+    color: var(--blanco);
+    font-weight: 700;
+    text-decoration: underline;
+}
+.boton-menu {
+    background: transparent;
+    border: 2px solid var(--violeta);
+    cursor: pointer;
+}
+.boton-menu:hover { background: var(--violeta-claro); }
+
+main { padding: 2rem 1.5rem 3rem; }
+main > section + section, main > article + section { margin-top: 2rem; }
+
+#pie {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem 2rem;
+    justify-content: space-between;
+    padding: 2rem 1.5rem;
+    background: var(--violeta);
+    color: var(--blanco);
+}
+#pie a { color: var(--blanco); }
+#pie a:hover { color: var(--violeta-claro); }
+#pie :focus-visible { outline-color: var(--blanco); }
+#pie ul { display: flex; flex-wrap: wrap; gap: 1rem; }
+#pie p { width: 100%; margin: 0; }
+
+/* ---------- Inicio ---------- */
+.portada-inicio {
+    padding: 2rem 1.25rem;
+    border-left: 8px solid var(--violeta);
+    background: var(--violeta-claro);
+    border-radius: 0 .75rem .75rem 0;
+}
+.portada-inicio h1 { font-size: 2.1rem; }
+.acciones { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1rem; }
+
+.canales { display: grid; gap: 1rem; margin-top: 1rem; }
+.canales article, .promociones li, .cuenta-inicio {
+    padding: 1rem 1.25rem;
+    border: 1px solid var(--borde);
+    border-left: 6px solid var(--violeta);
+    border-radius: .4rem;
+    background: var(--blanco);
+}
+.cuenta-inicio { margin-top: 1rem; }
+.cuenta-inicio h2 { margin-top: 0; }
+.promociones ul { display: grid; gap: 1rem; }
+
+mark {
+    background: var(--violeta);
+    color: var(--blanco);
+    padding: .1rem .4rem;
+    border-radius: .25rem;
+    font-weight: 700;
+}
+
+/* ---------- Libros ---------- */
+.catalogo-lista { display: grid; grid-template-columns: 1fr; gap: 1.25rem; margin-top: 1rem; }
+.catalogo-lista article {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: .2rem;
+    padding: 1rem;
+    border: 1px solid var(--borde);
+    border-left: 6px solid var(--violeta);
+    border-radius: .4rem;
+}
+.catalogo-lista img {
+    width: 100%;
+    height: 220px;
+    object-fit: contain;
+    background: var(--violeta-claro);
+    border-radius: .3rem;
+    margin-bottom: .5rem;
+}
+.catalogo-lista p { margin-bottom: .25rem; }
+.catalogo-lista a.btn { margin-top: auto; align-self: flex-start; }
+data { font-weight: 700; color: var(--violeta); }
+
+.ruta ol { display: flex; flex-wrap: wrap; gap: .25rem; margin-bottom: 1rem; font-size: .9rem; }
+.ruta li + li::before { content: "/"; margin-right: .25rem; color: var(--texto-suave); }
+.ruta [aria-current="page"] { font-weight: 700; }
+
+.libro { display: grid; gap: 1rem 2rem; }
+.libro figure img { width: 200px; max-width: 100%; height: auto; background: var(--violeta-claro); border-radius: .3rem; }
+.libro h1 { margin-bottom: .5rem; }
+.libro h2 { margin-top: .5rem; }
+.libro .precio { font-size: 1.3rem; }
+
+/* ---------- Botones ---------- */
+button, a.btn {
+    display: inline-block;
+    padding: .65rem 1.4rem;
+    font: inherit;
+    font-size: .95rem;
+    font-weight: 600;
+    color: var(--blanco);
+    background: var(--violeta);
+    border: 2px solid var(--violeta);
+    border-radius: 999px;
+    text-decoration: none;
+    cursor: pointer;
+}
+button:hover, a.btn:hover { background: var(--violeta-oscuro); border-color: var(--violeta-oscuro); color: var(--blanco); }
+button:disabled { background: #6b6b6b; border-color: #6b6b6b; cursor: not-allowed; }
+.boton-secundario, a.btn.secundario {
+    background: var(--blanco);
+    color: var(--violeta);
+}
+.boton-secundario:hover, a.btn.secundario:hover { background: var(--violeta-claro); color: var(--violeta-oscuro); }
+.boton-secundario:disabled { background: var(--blanco); color: #6b6b6b; border-color: #6b6b6b; }
+
+/* ---------- Formularios ---------- */
+form { max-width: 40rem; margin-bottom: 1.5rem; }
+fieldset {
+    margin-bottom: 1.25rem;
+    padding: 1rem 1.25rem;
+    border: 2px solid var(--borde-campo);
+    border-radius: .5rem;
+}
+legend { padding: 0 .5rem; font-weight: 700; color: var(--violeta); }
+
+.campo { margin-bottom: 1rem; }
+label { display: block; margin-bottom: .3rem; font-weight: 600; font-size: .95rem; }
+.nota { font-weight: 400; color: var(--texto-suave); }
+.ayuda { margin: .25rem 0 0; font-size: .85rem; color: var(--texto-suave); }
+
+input, select, textarea {
+    display: block;
+    width: 100%;
+    padding: .6rem .75rem;
+    font: inherit;
+    color: var(--texto);
+    background: var(--blanco);
+    border: 2px solid var(--borde-campo);
+    border-radius: .4rem;
+}
+textarea { min-height: 7rem; resize: vertical; }
+input[type="checkbox"] { display: inline-block; width: 1.2rem; height: 1.2rem; margin-right: .5rem; vertical-align: middle; }
+.casilla label { display: inline; font-weight: 400; }
+
+/* Campo con error: borde más grueso con trazo discontinuo, ícono "!" y mensaje de texto */
+input[aria-invalid="true"], select[aria-invalid="true"], textarea[aria-invalid="true"] {
+    border-color: var(--error);
+    border-style: dashed;
+    border-width: 3px;
+}
+.error-campo, .aviso-general p { margin: .35rem 0 0; color: var(--error); font-weight: 600; font-size: .9rem; }
+.error-icono {
+    display: inline-block;
+    width: 1.2rem;
+    height: 1.2rem;
+    margin-right: .4rem;
+    line-height: 1.2rem;
+    text-align: center;
+    font-size: .8rem;
+    font-weight: 700;
+    color: var(--blanco);
+    background: var(--error);
+    border-radius: 50%;
+}
+
+.aviso {
+    margin-bottom: 1.25rem;
+    padding: .9rem 1.1rem;
+    border: 2px solid var(--error);
+    border-left-width: 8px;
+    border-radius: .4rem;
+    background: var(--error-fondo);
+    color: #5c0010;
+}
+.aviso p { max-width: none; }
+.resumen-errores h2 { margin: 0 0 .5rem; font-size: 1.05rem; color: #5c0010; }
+.resumen-errores ul { padding-left: 1.2rem; list-style: disc; }
+.resumen-errores a { color: #5c0010; font-weight: 600; }
+.aviso-general { color: var(--error); font-weight: 600; }
+
+.fila-libro { position: relative; }
+.fila-libro .quitar { margin-top: .25rem; }
+
+.filtros { max-width: none; display: flex; flex-wrap: wrap; align-items: flex-start; gap: 1rem; }
+.filtros fieldset { flex: 1 1 240px; margin-bottom: 0; }
+.filtros .barra { flex-basis: 100%; }
+.filtros .aviso, .filtros .resumen-errores { flex-basis: 100%; }
+
+[aria-busy="true"] { cursor: progress; }
+
+/* ---------- Paginación ---------- */
+.paginacion { margin-top: 1.5rem; }
+.paginacion ul { display: flex; flex-wrap: wrap; justify-content: center; gap: .5rem; }
+.paginacion a, .paginacion span {
+    display: block;
+    min-width: 2.75rem;
+    padding: .55rem .8rem;
+    text-align: center;
+    border: 2px solid var(--borde-campo);
+    border-radius: .4rem;
+    text-decoration: none;
+}
+.paginacion a:hover { background: var(--violeta-claro); }
+.paginacion [aria-current="page"] { background: var(--violeta); border-color: var(--violeta); color: var(--blanco); font-weight: 700; text-decoration: underline; }
+.paginacion [aria-disabled="true"] { color: #6b6b6b; border-style: dotted; }
+
+/* ---------- Tablas y listas de contenido ---------- */
+table { width: 100%; max-width: 28rem; margin-bottom: 1rem; border-collapse: collapse; }
+caption { text-align: left; margin-bottom: .5rem; color: var(--texto-suave); font-size: .9rem; }
+th, td { text-align: left; padding: .6rem .75rem; border-bottom: 1px solid var(--borde-campo); }
+thead th { background: var(--violeta-claro); }
+
+.servicios-lista, .sedes-lista { display: grid; gap: .6rem; margin-top: .75rem; }
+.servicios-lista li { padding: .75rem 1rem; background: var(--violeta-claro); border-left: 6px solid var(--violeta); border-radius: .3rem; }
+.sedes-lista li { padding: .5rem 0; border-bottom: 1px solid var(--borde-campo); }
+figure { margin-bottom: 1rem; }
+figcaption { margin-top: .3rem; font-size: .85rem; color: var(--texto-suave); }
+.nosotros img { max-width: 100%; height: auto; background: var(--violeta-claro); }
+
+#confirmacion ul { list-style: disc; padding-left: 1.2rem; margin-bottom: 1rem; }
+#confirmacion { padding: 1.25rem; border-left: 8px solid var(--violeta); background: var(--violeta-claro); border-radius: 0 .5rem .5rem 0; max-width: 40rem; }
+#confirmacion h2 { margin-top: 0; }
+
+/* ---------- Pantallas más anchas ---------- */
+@media (min-width: 700px) {
+    .canales, .promociones ul, .catalogo-lista, .servicios-lista { grid-template-columns: repeat(2, 1fr); }
+    .libro { grid-template-columns: 200px 1fr; align-items: start; }
+    .libro section { grid-column: 1 / -1; }
+}
+@media (min-width: 1024px) {
+    main { padding: 2.5rem 2rem 3.5rem; }
+    .promociones ul, .catalogo-lista, .servicios-lista { grid-template-columns: repeat(3, 1fr); }
+    .portada-inicio { padding: 3rem 2.5rem; }
+    .portada-inicio h1 { font-size: 2.6rem; }
+}
+
+/* Sin animaciones si el sistema lo pide */
+@media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
+
+/* Contraste alto del sistema: los bordes y el foco se respetan */
+@media (forced-colors: active) {
+    .catalogo-lista article, .canales article, .promociones li, fieldset, input, select, textarea, button, a.btn {
+        border: 2px solid CanvasText;
+    }
+    #menu a[aria-current="page"], .paginacion [aria-current="page"] { outline: 2px solid Highlight; }
+}

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PawPrints - Librería online y física</title>
+  <meta name="description" content="PawPrints, librería de Luján con tienda online y local físico. Catálogo, reservas y novedades.">
+  <link rel="icon" href="img/placeholder.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap">
+  <link rel="stylesheet" href="styles/reset.css">
+  <link rel="stylesheet" href="styles/style.css">
+  <link rel="stylesheet" href="styles/print.css" media="print">
+</head>
+<body data-pagina="inicio">
+  <a class="salto" href="#contenido">Saltar al contenido</a>
+
+  <header id="cabecera"></header>
+  <nav id="menu" aria-label="Navegación principal"></nav>
+
+  <main id="contenido" tabindex="-1">
+    <noscript><p>PawPrints necesita JavaScript para mostrar el catálogo y las cuentas. Activalo en tu navegador y volvé a cargar la página.</p></noscript>
+    <section class="portada-inicio" aria-labelledby="titulo-pagina">
+      <h1 id="titulo-pagina">Bienvenidos a PawPrints</h1>
+      <p>En PawPrints acercamos los libros a toda la comunidad, combinando la calidez de una librería de barrio con la comodidad de comprar desde donde estés.</p>
+      <div class="acciones">
+        <a class="btn" href="catalogo.html">Ver el catálogo</a>
+        <a class="btn secundario" href="reserva.html">Reservar un libro</a>
+      </div>
+    </section>
+
+    <section class="canales" aria-label="Cómo comprar">
+      <article aria-labelledby="online-titulo">
+        <h2 id="online-titulo">Tienda online</h2>
+        <p>Recorré nuestro <a href="catalogo.html">catálogo completo</a> desde tu casa, reservá los títulos que te interesen y retiralos o pediles envío a domicilio.</p>
+      </article>
+      <article aria-labelledby="fisica-titulo">
+        <h2 id="fisica-titulo">Tienda física</h2>
+        <p>Visitá nuestro local, donde vas a encontrar a todo el equipo listo para recomendarte tu próxima lectura y recibir pedidos especiales.</p>
+      </article>
+    </section>
+
+    <section aria-labelledby="destacados-titulo">
+      <h2 id="destacados-titulo">Para empezar a leer</h2>
+      <div id="destacados-lista" aria-live="polite"></div>
+    </section>
+
+    <section class="promociones" aria-labelledby="promociones-titulo">
+      <h2 id="promociones-titulo">Promociones y novedades</h2>
+      <ul>
+        <li>
+          <h3>Semana del libro nacional</h3>
+          <p><mark>20% de descuento</mark> en toda la colección de autores argentinos, del 1 al 7 de septiembre.</p>
+        </li>
+        <li>
+          <h3>Club de lectura PawPrints</h3>
+          <p>Sumate a nuestro encuentro mensual en el local: <mark>entrada libre y gratuita</mark>.</p>
+        </li>
+        <li>
+          <h3>2x1 en novelas seleccionadas</h3>
+          <p>Válido presentando este cupón en la tienda física. <mark>Solo por tiempo limitado</mark>.</p>
+        </li>
+      </ul>
+    </section>
+  </main>
+
+  <footer id="pie"></footer>
+
+  <script type="module" src="js/paginas/inicio.js"></script>
+</body>
+</html>

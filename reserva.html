@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulario de reserva - PawPrints</title>
+  <meta name="description" content="Reservá libros del catálogo de PawPrints.">
+  <link rel="icon" href="img/placeholder.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap">
+  <link rel="stylesheet" href="styles/reset.css">
+  <link rel="stylesheet" href="styles/style.css">
+  <link rel="stylesheet" href="styles/print.css" media="print">
+</head>
+<body data-pagina="reserva">
+  <a class="salto" href="#contenido">Saltar al contenido</a>
+
+  <header id="cabecera"></header>
+  <nav id="menu" aria-label="Navegación principal"></nav>
+
+  <main id="contenido" tabindex="-1">
+    <noscript><p>PawPrints necesita JavaScript para mostrar el catálogo y las cuentas. Activalo en tu navegador y volvé a cargar la página.</p></noscript>
+    <h1>Formulario de reserva</h1>
+    <div id="intro-reserva">
+      <p>Completá tus datos y elegí el libro que querés reservar. Nos vamos a comunicar para confirmar la reserva.</p>
+      <p>Los campos marcados como <span class="nota">(obligatorio)</span> hay que completarlos.</p>
+    </div>
+
+    <p id="estado-carga">Cargando el catálogo...</p>
+
+    <form id="form-reserva" method="post" action="reserva.html" novalidate hidden>
+      <div class="aviso resumen-errores" tabindex="-1" hidden></div>
+      <div class="aviso aviso-general" role="alert" tabindex="-1" hidden></div>
+      <fieldset>
+        <legend>Datos del solicitante</legend>
+      <div class="campo">
+        <label for="nombre">Nombre y apellido <span class="nota">(obligatorio)</span></label>
+        <input type="text" id="nombre" name="nombre" required autocomplete="name" maxlength="100">
+      </div>
+      <div class="campo">
+        <label for="email">Correo electrónico <span class="nota">(obligatorio)</span></label>
+        <input type="email" id="email" name="email" required aria-describedby="email-ayuda" autocomplete="email" maxlength="254" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" title="Ingresá un correo válido, por ejemplo nombre@dominio.com.">
+        <p class="ayuda" id="email-ayuda">Por ejemplo: nombre@dominio.com</p>
+      </div>
+      <div class="campo">
+        <label for="telefono">Teléfono <span class="nota">(opcional)</span></label>
+        <input type="tel" id="telefono" name="telefono" aria-describedby="telefono-ayuda" autocomplete="tel" inputmode="tel" pattern="[0-9+ \(\)\-]{6,20}" title="Entre 6 y 20 caracteres: números, espacios, +, -, ( y ).">
+        <p class="ayuda" id="telefono-ayuda">Entre 6 y 20 caracteres: números, espacios, +, -, ( y ). Ej: 011 4444-5555</p>
+      </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Libros a reservar</legend>
+        <div id="filas"></div>
+        <button type="button" id="agregar-libro" class="boton-secundario">Agregar otro libro</button>
+      </fieldset>
+
+      <button type="submit" data-ocupado="Enviando reserva...">Confirmar reserva</button>
+    </form>
+
+    <section id="confirmacion" aria-labelledby="confirmacion-titulo" hidden></section>
+  </main>
+
+  <footer id="pie"></footer>
+
+  <script type="module" src="js/paginas/reserva.js"></script>
+</body>
+</html>

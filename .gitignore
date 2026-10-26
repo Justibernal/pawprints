@@ -1,5 +1,2 @@
 .DS_Store
-/vendor/
-.env
-/logs/*
-!/logs/.gitkeep
+Thumbs.db

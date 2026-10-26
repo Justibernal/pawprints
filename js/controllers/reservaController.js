@@ -1,36 +1,20 @@
-import { ReservaService } from '../services/reservaService.js';
-
+import { ReservaService } from '/js/services/reservaService.js';
 document.addEventListener('DOMContentLoaded', () => {
-  const formReserva = document.getElementById('form-reserva');
-  const libroIdInput = document.getElementById('libro-id');
-
-  // Obtener parámetro de URL ?id=X
-  const urlParams = new URLSearchParams(window.location.search);
-  const libroIdParam = urlParams.get('id');
-  if (libroIdParam && libroIdInput) {
-    libroIdInput.value = libroIdParam;
-  }
-
-  if (!formReserva) return;
-
-  formReserva.addEventListener('submit', async (e) => {
+  const form = document.getElementById('form-reserva');
+  const params = new URLSearchParams(window.location.search);
+  const inputId = document.getElementById('libro-id');
+  if (params.get('id') && inputId) inputId.value = params.get('id');
+  if (!form) return;
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
-
-    const libroId = document.getElementById('libro-id').value;
-    const nombre = document.getElementById('usuario-nombre').value;
-    const email = document.getElementById('usuario-email').value;
-
     try {
       const res = await ReservaService.crearReserva({
-        libro_id: libroId,
-        nombre_usuario: nombre,
-        email: email
+        libro_id: inputId.value,
+        nombre_usuario: document.getElementById('usuario-nombre').value,
+        email: document.getElementById('usuario-email').value
       });
-
-      alert(res.message || 'Reserva realizada con éxito');
-      window.location.href = './index.html';
-    } catch (err) {
-      alert(`Error en la reserva: ${err.message}`);
-    }
+      alert(res.message || 'Reserva exitosa');
+      window.location.href = '/index.html';
+    } catch (err) { alert(`Error: ${err.message}`); }
   });
 });

@@ -1,143 +1,110 @@
-# AutoCar — front-end
+# PawPrints - front-end
 
-Pantallas de AutoCar en HTML, CSS y JavaScript nativo, sin frameworks ni librerías de terceros. Las pantallas siguen los wireframes de Figma y [wireframes.md](../Entrega_2/wireframes.md).
+Sitio web de la librería PawPrints. Programación en Ambiente Web (11086), Comisión 50, UNLu.
 
-## Cómo se conecta con el back
+Integrantes: Federico Kasparian, Justino Bernal, Lautaro Marino y Mateo Ponti. Los legajos están en `autores.txt` y la versión en `VERSION`.
 
-El back es una API JSON en PHP ([AutoCarBackend](https://github.com/MateoPonti/AutoCarBackend)). El front pide los datos con `fetch` y arma las pantallas en el navegador.
+Sitio de la librería PawPrints en HTML, CSS y JavaScript nativo, sin frameworks. Consume la API JSON del back (`Backend`): pide los datos con `fetch` y arma las pantallas en el navegador.
 
-- **Dirección de la API** (`js/api/config.js`): si el front se abre en `localhost` o `127.0.0.1` usa `http://localhost:8000`; en cualquier otro dominio usa `https://autocarbackend-1.onrender.com`.
-- **Sesión:** `POST /api/login` devuelve un token JWT. Se guarda en `sessionStorage` y va en cada pedido como `Authorization: Bearer <token>`. Salir es descartar el token. No hay cookies ni CSRF.
-- **CORS:** el back sólo acepta los orígenes de su variable `FRONT_URL`. Hay que agregar ahí la dirección desde donde se abre el front: `http://localhost:5500` en local y la URL del front desplegado en Render.
-- **Errores:** la API responde `{"error", "mensaje", "errores": {campo: mensaje}}`. Los errores por campo (422) se muestran al lado de cada campo, igual que la validación del cliente.
+## Cómo probarlo
 
-### Pantallas conectadas a la API
+Los scripts son módulos ES, así que hay que servir la carpeta por HTTP (abrir el archivo con doble clic no funciona):
 
-| Página | Ruta de la API | Pantalla |
+```
+python3 -m http.server 5500      # o la extensión Live Server de VS Code
+```
+
+Abrir `http://localhost:5500`. Por defecto el sitio usa el back publicado, así que alcanza con eso.
+
+### Probar con el back local
+
+1. Levantar el back (`php -S localhost:8000 -t public public/index.php` en su carpeta) con el `.env` del back en `APP_ENV=development` (así acepta cualquier puerto de localhost).
+2. Copiar `js/api/config.local.example.js` como `js/api/config.local.js`. Ese archivo está en el `.gitignore`: no se sube al repo.
+3. Recargar. Para volver al back publicado, borrar `config.local.js`.
+
+## Conexión con el back
+
+- **Dirección de la API** (`js/api/config.js`): por defecto es `PRODUCCION`, el back publicado, así que el sitio publicado (rama `main`) siempre apunta bien sin tocar nada. `config.local.js` solo se carga al abrir el front en `localhost` o `127.0.0.1`: en cualquier otro dominio se ignora, aunque exista.
+- **Por qué no es un `.env`:** el front es estático y el navegador no puede leer un `.env`. El equivalente es `config.local.js` (local, no se sube) con `config.local.example.js` como plantilla (se sube).
+- **Sesión:** `POST /api/login` devuelve un token JWT. Se guarda en `sessionStorage` y viaja en cada pedido como `Authorization: Bearer <token>`. Salir es descartar el token. No hay cookies ni CSRF.
+- **CORS:** el back solo acepta los orígenes de su variable `FRONT_URL`; ahí va la dirección donde se publica el front.
+- **Errores:** la API responde `{"error", "mensaje", "errores": {campo: mensaje}}`. Los errores por campo (422) se muestran junto a cada campo, igual que la validación del navegador. Si no se puede conectar (por ejemplo, el servidor está arrancando), el mensaje es genérico y se ofrece reintentar.
+
+## Qué endpoints usa cada página
+
+| Página | Endpoint | Pantalla |
 |---|---|---|
-| `home.html` | `GET /api/vehiculos`, `GET /api/marcas` | Publicaciones con filtros (marca, precio, combustible) y paginación |
-| `buscar.html` | `GET /api/vehiculos`, `GET /api/marcas` | Búsqueda por texto y filtros |
-| `vehiculo.html?id=N` | `GET /api/vehiculos/{id}` | Detalle de vehículo |
-| `login.html` | `POST /api/login` | Ingresar. Con `?volver=pagina.html` vuelve ahí después |
-| `registro.html` | `POST /api/registro` y después `POST /api/login` | Crear cuenta e ingresar |
-| `cuenta.html` | `GET /api/me` | Datos del usuario, enlace de administración (sólo admin) y Salir |
-| `admin.html` | — | Panel de administración (sólo admin) |
-| `admin-vehiculos.html` | `GET /api/admin/vehiculos`, `DELETE /api/admin/vehiculos/{id}` | Listado con vendidos, editar y eliminar |
-| `admin-vehiculo.html` | `POST /api/admin/vehiculos` · `?id=N`: `PUT /api/admin/vehiculos/{id}` | Alta y edición de un vehículo |
+| `index.html` | `GET /api/libros?per_page=3` | Inicio con libros destacados |
+| `catalogo.html` | `GET /api/libros` | Filtros, orden y paginación (estado en la URL) |
+| `libro.html?id=slug` | `GET /api/libros/{id}` | Detalle |
+| `reserva.html` | `GET /api/libros?per_page=100`, `POST /api/reservas` | Reserva de uno o más libros |
+| `login.html` | `POST /api/login` | Ingresar (`?volver=pagina.html` vuelve ahí) |
+| `registro.html` | `POST /api/registro` y `POST /api/login` | Crear cuenta e ingresar |
+| `admin-libro.html` | `POST /api/admin/libros` | Alta de libros (solo rol admin) |
+| `nosotros.html`, `contacto.html` | - | Contenido fijo |
 
-Las páginas que piden sesión mandan a `login.html` si no hay token. Las de administración, además, mandan a `home.html` si el rol no es admin. Es sólo una comodidad: el back controla el rol en cada pedido.
+## Contrato de la API que espera el front
 
-### Pantallas que siguen siendo maqueta
+Todas las respuestas son JSON. Los errores tienen la forma `{"error": "codigo", "mensaje": "...", "errores": {"campo": "mensaje"}}`.
 
-El resto de las pantallas todavía no tiene ruta en la API, así que muestran datos de ejemplo:
+| Método y ruta | Acceso | Cuerpo / parámetros | Respuesta |
+|---|---|---|---|
+| `GET /api/libros` | público | `genero`, `autor`, `precio_max`, `orden` (`relevancia`, `precio-asc`, `precio-desc`, `titulo`), `page`, `per_page` (6, 12, 24; hasta 100) | `{items: [{id, titulo, autor, genero, precio, resumen, portada}], total, pagina, por_pagina, paginas}`. `404` si `page` supera `paginas`. |
+| `GET /api/libros/{id}` | público | `id` = slug | `{libro: {id, titulo, autor, genero, precio, resumen, descripcion, autor_bio, portada}}` o `404` |
+| `POST /api/registro` | público | `nombre`, `email`, `password`, `password_confirm` | `201 {usuario}` o `422` con `errores` |
+| `POST /api/login` | público | `email`, `password` | `{token, tipo, expira_en, usuario: {id, nombre, email, rol}}` o `422` con `mensaje` |
+| `GET /api/me` | token | - | `{usuario}` |
+| `POST /api/reservas` | público | `{nombre, email, telefono, items: [{libro, cantidad}]}` | `201 {reserva: {nombre, email, ...}}`. En `422`, las claves de `errores` son `nombre`, `email`, `telefono`, `items.N.libro`, `items.N.cantidad` e `items` (error general). |
+| `POST /api/admin/libros` | admin | `titulo`, `autor`, `genero`, `precio`, `resumen`, `descripcion`, `autor_bio`, `imagen_url` | `201 {libro}` o `422` con `errores` (claves = nombres de los campos) |
 
-- favoritos, mis publicaciones, publicar, tasación y canje;
-- meta-búsqueda, mensajes y plan;
-- talleres y verificación;
-- reportar, contacto y legales.
-
-Por la misma razón, el detalle de vehículo todavía no tiene las partes de verificación, tasación, ubicación, publicador ni favoritos. Ese maquetado está en la historia de git y en `guia.html`.
-
-| Página | Ruta futura | Pantalla |
-|---|---|---|
-| `index.html` | `/` | Landing pública |
-| `planes.html` | `/planes` | Planes y precios |
-| `favoritos.html` | `/cuenta/favoritos` | Favoritos organizados en listas |
-| `mis-publicaciones.html` | `/mis-publicaciones` | Publicaciones propias con el cupo del plan |
-| `publicar.html` | `/mis-publicaciones/nueva` | Publicar vehículo en 6 pasos |
-| `tasacion.html` | `/mis-publicaciones/:id/tasacion` | Tasación con IA |
-| `propuestas.html` | `/mis-publicaciones/propuestas` | Propuestas de canje recibidas y enviadas |
-| `proponer-canje.html` | `/vehiculo/:id/proponer-canje` | Proponer un canje |
-| `mapa.html` | `/mapa` | Mapa de vehículos |
-| `meta-busqueda.html` | `/meta-busqueda` | Mis intereses (búsquedas guardadas) |
-| `meta-busqueda-nueva.html` | `/meta-busqueda/nueva` | Nueva búsqueda con texto libre e IA |
-| `meta-busqueda-resultados.html` | `/meta-busqueda/:id` | Coincidencias y estadísticas de mercado |
-| `mensajes.html` | `/mensajes` | Conversaciones |
-| `conversacion.html` | `/mensajes/:id` | Conversación |
-| `plan.html` | `/cuenta/plan` | Plan activo y cambio de nivel |
-| `talleres.html` | `/talleres` | Talleres adheridos (mapa y lista) |
-| `verificar-vehiculo.html` | `/mis-publicaciones/:id/verificar` | Código para verificar en el taller |
-| `verificacion.html` | `/verificacion/:id` | Informe de verificación |
-| `talleres-adherirse.html` | `/talleres/adherirse` | Alta de un taller |
-| `taller.html` | `/taller` | Panel del mecánico |
-| `taller-verificacion.html` | `/taller/verificacion/:id` | Inspección con el checklist |
-| `legales.html` | `/legales` | Términos y privacidad |
-| `contacto.html` | `/ayuda/contacto` | Contacto |
-| `reportar.html` | `/reportes/nuevo` | Reportar publicación o usuario |
-| `guia.html` | — | Guía de componentes e índice de todas las pantallas (sólo de referencia) |
-
-## Cómo levantarlo en local
-
-1. Levantar el back en el puerto 8000. Los pasos están en el README de AutoCarBackend; el `.env` tiene que incluir `FRONT_URL=http://localhost:5500`.
-   ```
-   php -S localhost:8000 -t public public/index.php
-   ```
-2. Servir esta carpeta en el puerto 5500, desde la raíz del repositorio:
-   ```
-   php -S localhost:5500 -t front
-   ```
-   o, si tenés Python:
-   ```
-   python3 -m http.server 5500 --directory front
-   ```
-3. Entrar a `http://localhost:5500`.
-
-No alcanza con abrir los `.html` con doble clic: los módulos de JavaScript y el CORS necesitan que la página venga de un servidor. Para tener un administrador, registrate y seguí "Crear el primer administrador" del README del back.
-
-En Render (plan Free) el back se duerme tras unos minutos sin uso: el primer pedido puede tardar cerca de un minuto. Mientras tanto la pantalla muestra "Cargando…".
-
-Para ver la versión de celular alcanza con achicar la ventana o usar la vista adaptable del navegador (F12). Para ver la de impresión, la vista previa de impresión (Ctrl+P).
+`portada` es la URL de la imagen del libro; si viene vacía, el front usa `img/placeholder.svg`.
 
 ## Estructura
 
 ```
-front/
-├── *.html                       una página por pantalla
-├── guia.html                    todos los componentes, para copiar el HTML
-├── js/
-│   ├── api/                     los fetch: una función por ruta de la API
-│   │   ├── config.js            URL de la API (local o Render)
-│   │   ├── cliente.js           fetch con token, JSON y errores (ErrorApi)
-│   │   ├── auth.js              login, registro, me
-│   │   ├── vehiculos.js         listado, detalle y marcas (público)
-│   │   └── admin.js             alta, modificación y baja de vehículos
-│   ├── servicios/               lógica que comparten las páginas
-│   │   ├── sesion.js            token y usuario, requerirLogin / requerirAdmin
-│   │   ├── formato.js           precios, km y nombres de combustible, transmisión y estado
-│   │   ├── vistas.js            fichas, paginación y avisos armados con el DOM
-│   │   └── formularios.js       envío por fetch y errores del back al lado de cada campo
-│   ├── paginas/                 el script de cada página conectada (catalogo.js sirve a home y buscar)
-│   ├── dialogos.js              abre y cierra las ventanas <dialog>
-│   ├── validacion.js            validación en el cliente con el error al lado de cada campo
-│   └── publicar.js              formulario de publicar en pasos, vista previa de fotos y resumen
-└── styles/
-    ├── reset.css
-    ├── estilos.css              variables (colores, tipografía, espaciado) y estructura
-    ├── componentes.css          barra, encabezado, botones, campos, chips, fichas, listas
-    ├── pantallas.css            lo propio de cada pantalla
-    └── print.css                impresión, enlazada con media="print"
+index.html catalogo.html libro.html reserva.html
+nosotros.html contacto.html login.html registro.html admin-libro.html
+styles/   reset.css (reset-css 5.0.1), style.css, print.css
+img/      placeholder.svg
+SITEMAP.md, PawPrints Wireframes.html, autores.txt, VERSION
+js/
+  api/         config.js (dirección de la API), config.local.example.js, cliente.js (fetch + token + errores), auth.js, libros.js, reservas.js, admin.js
+  servicios/   sesion.js, dom.js, formato.js, formularios.js (validación), layout.js (cabecera, menú y pie)
+  paginas/     un script por pantalla
 ```
 
-Las páginas cargan su script con `<script type="module" src="js/paginas/....js">`. Las páginas nunca llaman a `fetch` directamente: usan `js/api/`. Así, si cambia una ruta del back, se corrige en un solo lugar.
+## Formularios y marcado
 
-## Decisiones
+- Todos los campos tienen `label`, `autocomplete` y las restricciones HTML (`required`, `type`, `pattern`, `min`, `max`, `maxlength`, `minlength`). Los formularios llevan `novalidate` y `js/servicios/formularios.js` muestra los mensajes junto al campo, con `aria-invalid` y `aria-describedby`, más un resumen con enlaces a cada error.
+- Los errores se indican con texto, ícono y borde discontinuo, no solo con color. Los enlaces van subrayados y la página actual del menú se marca con `aria-current`.
+- Las imágenes tienen `alt`, `width` y `height`; los resultados y avisos dinámicos usan regiones `aria-live`; cada página tiene un único `h1`, enlace para saltar al contenido y foco visible.
+- Los textos que llegan de la API se insertan siempre como texto (`textContent`), nunca como HTML.
+- Los límites (nombre 100, cantidad 1 a 10, teléfono, contraseña 8 a 72, etc.) son los mismos que valida el back.
 
-**Colores provisorios.** Por ahora son los grises de los wireframes: la paleta de la marca todavía no está definida. Todos los colores están como variables en `:root` (`styles/estilos.css`) y ninguna regla usa un color suelto, así que cuando el grupo elija la paleta se cambia en un solo lugar.
+## Manual de identidad
 
-**Nombres en castellano.** Las clases y variables siguen el estilo de PAWPrints: bloque y elemento separados por `__` (`ficha-vehiculo__precio`) y variantes por `--` (`boton--secundario`).
+De las dos opciones que daba la consigna elegimos el manual Violeta.
 
-**Barra de navegación.** Va primero en el HTML. En celular se fija abajo, como en Figma; desde 1024px pasa a ser una barra superior con la marca. Las páginas con barra llevan `class="con-barra"` en el `body` para dejarle lugar abajo. La sección actual se marca con `aria-current="page"`.
+Los colores del manual son el violeta `#5c068c` y el blanco `#ffffff`. El violeta lo usamos en el nombre del sitio, los títulos, los enlaces, los botones y el pie; el blanco es el fondo y el texto que va sobre violeta.
 
-**Filtros en la URL.** Los filtros y la página del listado son formularios GET (`home.html?marca=Toyota&page=2`). Se puede recargar, compartir el enlace o volver atrás sin perder la búsqueda.
+Como el manual solo trae esos dos colores, para el hover, los fondos suaves y los bordes usamos el mismo violeta más oscuro (`#400462`) o más claro (`#f2ebf6` y `#decde8`), así no agregamos colores que no sean de la marca. Para el texto usamos un gris oscuro porque el manual no fija uno.
 
-**Datos del servidor como texto.** Todo lo que llega de la API se pone con `textContent` o creando elementos (`js/servicios/vistas.js`), nunca con `innerHTML`. Así un dato con HTML no se ejecuta en la página.
+La tipografía del manual es Argentum Sans y la equivalente que indica es Montserrat. Cargamos Montserrat desde Google Fonts y dejamos Argentum Sans primera en la lista por si está instalada.
 
-**Errores de formulario al lado de cada campo.** Los wireframes lo piden así. El campo lleva `aria-invalid="true"` y `aria-describedby` apuntando al texto del error (`.campo__error`), así el lector de pantalla lo lee al llegar al campo. Se usa lo mismo para los errores de validación del cliente y para los del back.
+Todo esto está definido una sola vez como variables en `:root`, al principio de `styles/style.css`.
 
-**Validación en el cliente y en el servidor.** `js/validacion.js` usa las reglas del propio HTML (`required`, `min`, `pattern`…), que copian las del back. Es sólo una ayuda para el usuario: el back vuelve a validar todo.
+## Responsive
 
-**Ventanas.** Las ventanas como "Eliminar vehículo" son `<dialog>` que abre `js/dialogos.js`; los menús "⋯" usan `<details>`, que funciona sin JavaScript.
+Lo hicimos mobile first: el CSS base es el de celular, con todo en una columna, y las media queries agregan columnas cuando hay más ancho. A partir de 700px las fichas del catálogo, las promociones y los servicios pasan a dos columnas, y a partir de 1024px a tres. Elegimos esos anchos porque cada ficha necesita unos 300px para que la portada y el texto no queden apretados.
 
-**Estados vacíos y de carga.** Las pantallas conectadas muestran "Cargando…" mientras esperan, un aviso con "Reintentar" si la API falla y un estado vacío si no hay resultados.
+Usamos grid para las grillas de fichas y flex para lo que va en fila y tiene que poder bajar de renglón (el menú, los filtros del catálogo y el pie). Por eso el menú no necesita botón hamburguesa. El `body` tiene un ancho máximo de 1200px para que en monitores grandes no quede todo estirado.
 
-**Responsive.** Mobile first: lo base es para celular. Desde 768px el contenido se centra con un ancho máximo y la grilla de vehículos pasa a 3 columnas; desde 1024px la grilla va a 4 columnas.
+## Impresión
+
+`styles/print.css` se enlaza con `media="print"` en todas las páginas.
+
+Al imprimir se oculta lo que en papel no sirve: el menú, las redes del pie, los botones y los filtros del catálogo. El nombre del sitio y todo el contenido se mantienen, incluido el formulario de reserva, que se puede imprimir para completar a mano. Se imprime en negro sobre blanco y sin fondos de color para no gastar tinta.
+
+Con `@page` definimos hoja A4 y márgenes de 2cm. Con `break-inside: avoid` evitamos que una ficha del catálogo, un grupo de campos o una tabla queden cortados entre dos hojas.
+
+Para ver la versión de celular alcanza con achicar la ventana o usar la vista adaptable del navegador (F12). Para ver la de impresión, la vista previa de impresión (Ctrl+P). Se necesita internet para que cargue Montserrat; sin conexión se ve con la fuente sans-serif del sistema.

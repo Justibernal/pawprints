@@ -1,6 +1,5 @@
-// Cliente HTTP de la API: arma la URL, manda el token y convierte las respuestas.
-// Todos los fetch del front pasan por acá; los archivos de al lado (auth.js, vehiculos.js, admin.js)
-// sólo dicen qué ruta llamar.
+// Cliente HTTP: arma la URL, manda el token y convierte las respuestas.
+// Todos los fetch del front pasan por acá; auth.js, libros.js, reservas.js y admin.js solo dicen qué ruta llamar.
 import { API_URL } from './config.js';
 import * as sesion from '../servicios/sesion.js';
 
@@ -65,5 +64,3 @@ export async function pedir(metodo, ruta, { consulta, cuerpo } = {}) {
 
 export const get = (ruta, consulta) => pedir('GET', ruta, { consulta });
 export const post = (ruta, cuerpo) => pedir('POST', ruta, { cuerpo });
-export const put = (ruta, cuerpo) => pedir('PUT', ruta, { cuerpo });
-export const del = (ruta) => pedir('DELETE', ruta);

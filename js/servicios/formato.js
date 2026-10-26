@@ -1,21 +1,17 @@
-// Cómo se muestran los datos que llegan de la API.
-const numero = new Intl.NumberFormat('es-AR', { maximumFractionDigits: 0 });
+// Formatos de presentación.
+const moneda = new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS', maximumFractionDigits: 0 });
 
-export const precio = (valor) => `$${numero.format(valor)}`;
-export const km = (valor) => `${numero.format(valor)} km`;
+// 15000 → "$ 15.000"
+export const precio = (valor) => moneda.format(Number(valor) || 0);
 
-export const COMBUSTIBLES = {
-    nafta: 'Nafta',
-    diesel: 'Diésel',
-    gnc: 'GNC',
-    hibrido: 'Híbrido',
-    electrico: 'Eléctrico',
+export const GENEROS = {
+    novela: 'Novela',
+    cuento: 'Cuento',
+    poesia: 'Poesía',
+    infantil: 'Infantil',
 };
-export const TRANSMISIONES = { manual: 'Manual', automatica: 'Automática' };
-export const ESTADOS = { disponible: 'Disponible', vendido: 'Vendido' };
 
-export const combustible = (valor) => COMBUSTIBLES[valor] || valor;
-export const transmision = (valor) => TRANSMISIONES[valor] || valor;
-export const estado = (valor) => ESTADOS[valor] || valor;
+export const genero = (clave) => GENEROS[clave] || clave;
 
-export const titulo = (v) => `${v.marca} ${v.modelo} ${v.anio}`;
+// Portada del libro: la que manda la API o la imagen por defecto.
+export const portada = (libro) => libro.portada || libro.imagen_url || 'img/placeholder.svg';

@@ -1,13 +1,25 @@
-// Ingresar con POST /api/login. Guarda el token y vuelve a la página que pidió el login (?volver=).
-import * as auth from '../api/auth.js';
+// Ingreso: POST /api/login. Con ?volver=pagina.html vuelve a esa página después de ingresar.
+import { montar } from '../servicios/layout.js';
+import { $ } from '../servicios/dom.js';
+import { activar, conectarMostrarClave } from '../servicios/formularios.js';
 import * as sesion from '../servicios/sesion.js';
-import { alEnviar } from '../servicios/formularios.js';
+import * as auth from '../api/auth.js';
 
-const params = new URLSearchParams(window.location.search);
-document.getElementById('aviso-registro').hidden = !params.has('registrado');
+montar();
 
-alEnviar(document.getElementById('form-login'), async ({ email, password }) => {
-    const respuesta = await auth.login(email, password);
-    sesion.guardar(respuesta);
-    window.location.replace(sesion.destinoDespuesDelLogin());
+if (sesion.hayUsuario()) window.location.replace('index.html');
+
+const form = $('#form-login');
+conectarMostrarClave(form);
+
+// Solo se acepta volver a una página del propio sitio (nombre-de-archivo.html)
+function destino() {
+    const volver = new URLSearchParams(window.location.search).get('volver') || '';
+    return /^[a-z0-9-]+\.html$/i.test(volver) ? volver : 'index.html';
+}
+
+activar(form, async (f) => {
+    const { token, usuario } = await auth.login(f.elements.email.value.trim().toLowerCase(), f.elements.password.value);
+    sesion.iniciar(token, usuario);
+    window.location.href = destino();
 });

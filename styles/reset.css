@@ -1,5 +1,4 @@
-/* Reset de Eric Meyer
-   http://meyerweb.com/eric/tools/css/reset/
+/* http://meyerweb.com/eric/tools/css/reset/
    v5.0.1 | 20191019
    License: none (public domain)
 */
@@ -50,71 +49,4 @@ q:before, q:after {
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
-}
-
-/* Lo que el reset de arriba borra y las pantallas de AutoCar usan tal como lo trae el navegador:
-   títulos y <strong> en negrita, listas con viñetas, fieldset con borde, <th> en negrita y el
-   interlineado que define estilos.css. "revert" vuelve al valor del navegador, así el reset
-   queda aplicado y el aspecto de las pantallas no cambia. */
-body {
-    line-height: inherit;
-}
-h1, h2, h3, h4, h5, h6,
-strong, b, em, i, small, big, cite, dfn, var, address,
-code, kbd, samp, pre, tt, th {
-    font: revert;
-}
-sub, sup {
-    font-size: revert;
-    vertical-align: revert;
-}
-menu, ol, ul {
-    list-style: revert;
-    padding: revert;
-}
-fieldset, legend {
-    border: revert;
-    padding: revert;
-}
-table {
-    border-collapse: revert;
-    border-spacing: revert;
-}
-
-/* Reset mínimo: saca los márgenes del navegador y unifica el modelo de caja */
-*, *::before, *::after{
-    box-sizing: border-box;
-}
-*{
-    margin: 0;
-}
-html{
-    -webkit-text-size-adjust: 100%;
-    text-size-adjust: 100%;
-}
-body{
-    min-height: 100vh;
-    -webkit-font-smoothing: antialiased;
-}
-img, svg, picture{
-    display: block;
-    max-width: 100%;
-}
-input, button, textarea, select{
-    font: inherit;
-    color: inherit;
-}
-button{
-    cursor: pointer;
-}
-ul[role="list"], ol[role="list"]{
-    padding: 0;
-    list-style: none;
-}
-a{
-    color: inherit;
-}
-/* hidden tiene que ocultar aunque la clase del elemento le ponga otro display */
-[hidden]{
-    display: none !important;
 }

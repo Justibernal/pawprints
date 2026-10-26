@@ -1,4 +1,4 @@
-// Rutas de autenticación de la API.
+// Rutas de autenticación.
 import { get, post } from './cliente.js';
 
 // → {token, tipo, expira_en, usuario}
